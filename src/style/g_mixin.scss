@@ -1,0 +1,214 @@
+/* === shadow === */
+%shadow{
+  box-shadow:0 1px 5px 3px rgba(0,0,0,0.05);
+}
+
+/* === uppercase === */
+%uppercase{
+  text-transform: uppercase;
+}
+
+
+
+/* get color
+*  setColor(red,.12)
+   ========================================================================== */
+@function setColor($name,$o:1) {
+  @if $name == red {
+    @return rgba(255,82,0,$o);
+  } @else if  $name == black {
+    @return rgba(0,0,0,$o);
+  } @else if  $name == white {
+    @return rgba(255,255,255,$o);
+  } @else if  $name == blue {
+    @return rgba(20,27,204,$o);
+  }
+}
+/* === default color === */
+$fontDefault:#313131;
+$fontRed:opacityColor(red);
+$fontBlack:opacityColor(black);
+$fontWhite:opacityColor(white);
+$fontWhite:opacityColor(blue);
+
+
+/* set font size
+   ========================================================================== */
+@function setFontSize($px) {
+  @return $px * 1px;
+}
+
+
+/* flex 水平
+   ========================================================================== */
+/* === 水平垂直居中 === */
+@mixin alignCenter{
+  display:flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+}
+
+/* ===水平左 垂直居中=== */
+@mixin alignCenter-r{
+  display:flex;
+  flex-direction: row;
+  justify-content:flex-end;
+  align-items: center;
+}
+
+/* ===水平右 垂直居中=== */
+@mixin alignCenter-l{
+  display:flex;
+  flex-direction: row;
+  justify-content:flex-start;
+  align-items: center;
+}
+
+
+/* === 水平 顶居中 === */
+@mixin alignTop{
+  display:flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* === 水平 垂直拉申 === */
+@mixin alignStretch{
+  display:flex;
+  flex-direction: row;
+}
+
+/* flex 垂直主轴
+   ========================================================================== */
+/* === 垂直垂直居中 === */
+@mixin alignCenterCol{
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+}
+
+/* === 垂直 left 居中 === */
+@mixin alignCenterCol-l{
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: flex-start;
+}
+/* === 垂直 right 居中 === */
+@mixin alignCenterCol-r{
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: flex-end;
+}
+/* === 垂直 水平拉申 居中 === */
+@mixin alignCenterCol-s{
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: stretch;
+}
+
+/* absolute 绝对居中
+   ========================================================================== */
+@mixin absCenter{
+  position: absolute;
+  left:50%;
+  top:50%;
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  display: block;
+}
+
+/* === 绝对lfet居中 y 轴 === */
+@mixin absCenter-l($leftPosition){
+  position: absolute;
+  left:$leftPosition;
+  top:50%;
+  transform: translateY(-50%);
+  display: block;
+}
+/* === 绝对right边居中 y 轴 === */
+@mixin absCenter-r($leftPosition){
+  position: absolute;
+  right:$leftPosition;
+  top:50%;
+  transform: translateY(-50%);
+  display: block;
+}
+
+
+
+
+/* === 两栏 左右，中间对齐 ****case****=== */
+@mixin setTowCol($width,$minheight,$leftWidth,$color){
+  width:$width;
+  min-height:$minheight;
+  margin:0 auto;
+  @include alignStretch;
+  .left{
+    width:$leftWidth;
+    background:$color;
+    border-left:500px solid $color;
+    margin-left:-500px;
+  }
+  .right{
+    flex:1;
+  }
+}
+.subpage{
+  @include setTowCol(500px,500px,200px,#ccc)
+}
+
+
+.box{
+  height:300px;
+  position: relative;
+}
+
+
+/*  li 列等分边距
+   ========================================================================== */
+@mixin liGap{
+ li{
+  .item{
+    margin:0 15px 30px 15px;
+    border:1px solid #ccc;
+  }
+ }
+}
+
+
+/*  16:9图片
+   ========================================================================== */
+/* === 16:9图片 === */
+@mixin img16-9{
+  z-index:1;
+  cursor: pointer;
+  display:block;
+  position: relative;
+  width:100%;
+  height:0;
+  padding-bottom:56%;
+  overflow: hidden;
+  img{
+    width:100%;
+    height:100%;
+    position:absolute;
+    z-index:2;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+  }
+}
+
+.img16-9{
+  @include img16-9
+}
+
+.box{
+    @include liGap
+}

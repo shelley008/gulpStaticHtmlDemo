@@ -1,0 +1,11 @@
+/* === clear float === */
+@mixin clearFn($selector) {
+  #{$selector}:after,#{$selector}:before{
+    content:'\0020';
+    clear:both;
+    display: table;
+  }
+}
+.clearfix{}
+
+@include clearFn('');
